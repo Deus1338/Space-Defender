@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
+    [SerializeField] float delayBeforScene = 2.1f;
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(0);
@@ -13,16 +14,23 @@ public class Level : MonoBehaviour
 
     public void LoadGameScene()
     {
+        FindObjectOfType<Score>().ResetScore();
         SceneManager.LoadScene(1);
     }
 
     public void LoadGameOverScene()
     {
-        SceneManager.LoadScene(2);
+        StartCoroutine(DelayBeforeNextScene());
     }
 
     public void Quit()
     {
        Application.Quit();
+    }
+
+    IEnumerator DelayBeforeNextScene()
+    {
+        yield return new WaitForSeconds(delayBeforScene);
+        SceneManager.LoadScene(2);
     }
 }

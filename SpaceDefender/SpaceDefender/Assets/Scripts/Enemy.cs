@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
+{   [Header("Enemy Stats")]
     [SerializeField] int health = 100;
-    [SerializeField] float shotCounter;
+    [SerializeField] int pointsPerKill = 100;
+
+    [Header("Shooting Params")]
+    float shotCounter;
     [SerializeField] float minShotDelay = 0.2f;
     [SerializeField] float maxShotDelay = 3f;
     [SerializeField] GameObject laserShot;
-    [SerializeField] GameObject explosionEffect;
-    [SerializeField] float destroyEffectTime = 0.13f;
-    [SerializeField] AudioClip explosionSound;
-    [SerializeField] [Range(0,1)] float deathSoundVolume = 0.3f;
-    float laserSpeed = -20f;
+    [SerializeField] float laserSpeed = -10f;
 
+    [Header("Destroy Effects")]
+    [SerializeField] GameObject explosionEffect;
+    [SerializeField] float destroyEffectTime = 0.1f;
+    [SerializeField] AudioClip explosionSound;
+    [SerializeField] [Range(0,1)] float deathSoundVolume = 0.1f;
+    
 
     void Start()
     {
@@ -68,9 +73,10 @@ public class Enemy : MonoBehaviour
 
     private void Destroy()
     {
+        FindObjectOfType<Score>().AddScore(pointsPerKill);
+        AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, deathSoundVolume);
         Destroy(gameObject);
         var expEffect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, deathSoundVolume);
         Destroy(expEffect, destroyEffectTime);
     }
 }

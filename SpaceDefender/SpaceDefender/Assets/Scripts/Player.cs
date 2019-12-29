@@ -8,11 +8,11 @@ public class Player : MonoBehaviour
     [Header("Player")]
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float distanceFromBorder = 0.5f;
-    [SerializeField] int health = 500;
+    public int health = 500;
     [SerializeField] GameObject explosionEffect;
-    [SerializeField] float destroyEffectTime = 0.13f;
+    [SerializeField] float destroyEffectTime = 0.1f;
     [SerializeField] AudioClip explosionSound;
-    [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.3f;
+    [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.1f;
 
     [Header("Player Shooting")]
     [SerializeField] GameObject laserShot;
@@ -76,6 +76,11 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(0, -6);
     }
 
+    public int GetHealth()
+    {
+        return health;
+    }
+
     private void Move()
     {
         float deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * playerSpeed;
@@ -110,9 +115,10 @@ public class Player : MonoBehaviour
 
     private void Destroy()
     {
+        FindObjectOfType<Level>().LoadGameOverScene();
+        AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, deathSoundVolume);
         Destroy(gameObject);
         var expEffect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
-        AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, deathSoundVolume);
         Destroy(expEffect, destroyEffectTime);
     }
 }

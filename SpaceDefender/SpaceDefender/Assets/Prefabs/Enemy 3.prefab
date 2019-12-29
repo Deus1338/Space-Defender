@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3204486016968254748}
   - component: {fileID: -3891062740327278792}
   m_Layer: 9
-  m_Name: Enemy 1
+  m_Name: Enemy 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 07335a9a2722e0646b286101e1c13302, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5b8bd36dea99e084f81c9590f3388e38, type: 3}
+  m_Color: {r: 0.88328516, g: 0.514151, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,16 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e318ca9789ce46b45a7063528022f929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  shotCounter: 0
-  minShotDelay: 0.2
-  maxShotDelay: 3
-  laserShot: {fileID: 4306942038938814116, guid: e3ea97104c0490e4a99677522b1c4bba,
+  health: 500
+  pointsPerKill: 200
+  minShotDelay: 1
+  maxShotDelay: 1.5
+  laserShot: {fileID: 4306942038938814116, guid: 786617b9ea667ee4fa2b346b041ba462,
     type: 3}
+  laserSpeed: -2
   explosionEffect: {fileID: 6005029626419734815, guid: b36cf8a3adc26e44ba1a6510e91bd6ad,
     type: 3}
   destroyEffectTime: 0.13
-  explosionSound: {fileID: 8300000, guid: f01c623f724825e44a923d1ae50256f2, type: 3}
+  explosionSound: {fileID: 8300000, guid: 5b8901772ab55c64baaba01ecc55281c, type: 3}
   deathSoundVolume: 0.3
 --- !u!114 &5403611803345098332
 MonoBehaviour:
@@ -137,7 +138,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.82, y: 0.84}
+    oldSize: {x: 1.64, y: 1.68}
     newSize: {x: 0.98, y: 0.75}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -145,20 +146,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.069173455, y: 0.4180832}
-      - {x: 0.06533885, y: 0.32563686}
-      - {x: -0.055602908, y: 0.32413244}
-      - {x: -0.061686754, y: 0.42000008}
-      - {x: -0.1886785, y: 0.42026472}
-      - {x: -0.40616524, y: 0.2897358}
-      - {x: -0.40664113, y: -0.20317888}
-      - {x: -0.12989807, y: -0.3654771}
-      - {x: -0.11595404, y: -0.42335892}
-      - {x: 0.10877842, y: -0.4166417}
-      - {x: 0.13984698, y: -0.35782146}
-      - {x: 0.4095103, y: -0.19785357}
-      - {x: 0.40999997, y: 0.28890896}
-      - {x: 0.1841327, y: 0.42191696}
+    - - {x: 0.16680518, y: 0.8424058}
+      - {x: 0.12541984, y: 0.7950196}
+      - {x: 0.12974964, y: 0.6387539}
+      - {x: -0.12694909, y: 0.63955784}
+      - {x: -0.1310496, y: 0.7950716}
+      - {x: -0.16682851, y: 0.8443222}
+      - {x: -0.38018677, y: 0.83707666}
+      - {x: -0.8154673, y: 0.57136583}
+      - {x: -0.80843306, y: -0.39468718}
+      - {x: -0.26132533, y: -0.7259631}
+      - {x: -0.20983064, y: -0.84017086}
+      - {x: 0.21244141, y: -0.8364768}
+      - {x: 0.26751915, y: -0.7220626}
+      - {x: 0.8188124, y: -0.38936186}
+      - {x: 0.81179184, y: 0.5818038}
+      - {x: 0.37564108, y: 0.8349743}
 --- !u!50 &-3204486016968254748
 Rigidbody2D:
   serializedVersion: 4
