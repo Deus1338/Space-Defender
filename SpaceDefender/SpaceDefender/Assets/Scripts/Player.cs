@@ -5,8 +5,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player")]
     [SerializeField] float playerSpeed = 10f;
     [SerializeField] float distanceFromBorder = 0.5f;
+    [SerializeField] int health = 500;
+    [SerializeField] GameObject explosionEffect;
+    [SerializeField] float destroyEffectTime = 0.13f;
+    [SerializeField] AudioClip explosionSound;
+    [SerializeField] [Range(0, 1)] float deathSoundVolume = 0.3f;
+
+    [Header("Player Shooting")]
     [SerializeField] GameObject laserShot;
     [SerializeField] float laserSpeed = 20f;
     [SerializeField] float firePeriod = 1f;
@@ -17,15 +25,13 @@ public class Player : MonoBehaviour
     float xMax;
     float yMin;
     float yMax;
-    // Start is called before the first frame update
+
     void Start()
     {
         DefineStartPosition();
         SetUpMoveBoundaries();
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -48,6 +54,7 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
+            //Vector2 laserAppearPosition = new Vector2(transform.position.x, transform.position.y + 0.6f);
             GameObject laser = Instantiate(laserShot, transform.position,
                                                                    Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
@@ -80,4 +87,32 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(newXPos, newYPos);
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+
+        DamageDealer damageDealer = other.GetComponent<DamageDealer>();
+        if (!damageDealer)
+        {
+            return;
+        }
+        ProcessHit(damageDealer);
+    }
+
+    private void ProcessHit(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        damageDealer.Hit();
+        if (health <= 0)
+        {
+            Destroy();
+        }
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
+        var expEffect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        AudioSource.PlayClipAtPoint(explosionSound, Camera.main.transform.position, deathSoundVolume);
+        Destroy(expEffect, destroyEffectTime);
+    }
 }
